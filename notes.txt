@@ -43,3 +43,6 @@ sequelize db:migrate                        Run pending migrations
   sequelize model:create                      Generates a model and its migration
   sequelize seed:generate                     Generates a new seed file
   sequelize seed:create                       Generates a new seed file
+
+  npx sequelize model:generate --name "User" --attributes userName:string,email:string,password:string,role:string
+  npx sequelize model:generate --name "UserProfile" --attributes name:string,profilPictur:string,alamat:string,UserId:integer
