@@ -9,18 +9,62 @@
 
 <body>
     <!-- navbar -->
-    <%- include('_navbar') %>
+    
 
         <!-- main content -->
-        <h1>Welcome <%= data.name %>!</h1>
+        <h1>Welcome <%= data.username %>!</h1>
 
-        <div>
-            <a class="btn btn-primary" href="/driver/order" role="button">Order</a>
-            <a class="btn btn-primary" href="/driver/profile" role="button">Setting Profile</a>
-        </div>
+        <!-- delete notification -->
+        <%- include('_alertIcon') %>
+            <% if (name) { %>
+                <div class="alert alert-danger d-flex align-items-center" role="alert">
+                    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:">
+                        <use xlink:href="#exclamation-triangle-fill" />
+                    </svg>
+                    <div>
+                        Driver profile with a name <%= name %> has been removed
+                    </div>
+                </div>
+                <% } %>
 
-        <!-- boostrap -->
-        <%- include('_boostrap') %>
+                    <!-- Driver Profile -->
+                    <% if (data.DriverProfile==null) { %>
+                        <div>Please input your profile!</div>
+                        <a class="btn btn-primary" href="/driver/<%= data.id %>/profile/add" role="button">Setting
+                            Profile</a>
+                        <% } else { %>
+                            <div class="card w-50 p-3" style="width: 18rem;">
+                                <h4>Profile Driver</h4>
+                                <img src="<%= data.DriverProfile.profilePicture %>" class="card-img-top">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        <%= data.DriverProfile.name %>
+                                    </h5>
+                                </div>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">Username: <%= data.username %>
+                                    </li>
+                                    <li class="list-group-item">Email: <%= data.email %>
+                                    </li>
+                                    <li class="list-group-item">Phone Number: <%= data.DriverProfile.phoneNumber %>
+                                    </li>
+                                    <li class="list-group-item">License Plate: <%= data.DriverProfile.licensePlate %>
+                                    </li>
+                                </ul>
+                                <div class="card-body d-flex">
+                                    <a class="btn btn-primary" href="/driver/<%= data.id %>/order" role="button">Find
+                                        Customer</a>
+                                    <a class="btn btn-primary" href="/driver/<%= data.id %>/profile/edit"
+                                        role="button">Setting
+                                        Profile</a>
+                                    <a class="btn btn-danger" href="/driver/<%= data.id %>/profile/delete"
+                                        role="button">Delete</a>
+                                </div>
+                            </div>
+                            <% } %>
+
+                                <!-- boostrap -->
+                                <%- include('_boostrap') %>
 
 </body>
 
