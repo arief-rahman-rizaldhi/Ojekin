@@ -1,8 +1,8 @@
-const {User,UserProfile} = require('../models')
+const { User, UserProfile } = require('../models')
 
 
-class Controller{
-    static async register(req,res){
+class Controller {
+    static async register(req, res) {
         try {
             let data = await User.findAll()
             res.render('registerUser')
@@ -11,9 +11,9 @@ class Controller{
             res.send(error)
         }
     }
-    static async saveRegister(req,res){
+    static async saveRegister(req, res) {
         try {
-            let {userName,email,password}=req.body
+            let { userName, email, password } = req.body
             await User.create({
                 userName,
                 email,
@@ -25,7 +25,7 @@ class Controller{
             res.send(error)
         }
     }
-    static async login(req,res){
+    static async login(req, res) {
         try {
             // let data = await User.findAll()
             // res.send(data)
@@ -35,24 +35,32 @@ class Controller{
             res.send(error)
         }
     }
-    static async saveLogin(req,res){
+    static async saveLogin(req, res) {
         try {
             console.log(req.body)
-            let{userName,password}=req.body
-            let data=await User.findAll({where:{userName:userName,
-            password:password}})
+            let { userName, password } = req.body
+            let data = await User.findAll({
+                where: {
+                    userName: userName,
+                    password: password
+                }
+            })
             res.send(data)
         } catch (error) {
             console.log(error)
             res.send(error)
         }
     }
-    static async home(req,res){
+    static async home(req, res) {
         try {
             console.log(req.body)
-            let{userName,password}=req.body
-            let data=await User.findAll({where:{userName:userName,
-            password:password}})
+            let { userName, password } = req.body
+            let data = await User.findAll({
+                where: {
+                    userName: userName,
+                    password: password
+                }
+            })
             res.send(data)
         } catch (error) {
             console.log(error)
@@ -61,4 +69,4 @@ class Controller{
     }
 
 }
-module.exports=Controller
+module.exports = Controller
