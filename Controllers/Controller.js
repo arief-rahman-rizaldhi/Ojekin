@@ -1,4 +1,4 @@
-const { User, UserProfile } = require('../models')
+const { User, UserProfile, Driver, DriverProfile } = require('../models')
 
 
 class Controller {
@@ -65,6 +65,16 @@ class Controller {
         } catch (error) {
             console.log(error)
             res.send(error)
+        }
+    }
+
+    static async showDriverPage(req, res) {
+        try {
+            const data = await Driver.findAll();
+            res.render('driverPage', { data });
+        } catch (error) {
+            console.log(error);
+            res.send(error.message);
         }
     }
 

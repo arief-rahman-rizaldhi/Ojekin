@@ -4,12 +4,12 @@ const {
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Driver extends Model {
-    
+
     static associate(models) {
       Driver.hasOne(models.DriverProfile);
       Driver.hasMany(models.Order);
       Driver.belongsToMany(models.User, {
-        through: Order,
+        through: models.Order,
         foreignKey: "DriverId",
         otherKey: "UserId"
       });
