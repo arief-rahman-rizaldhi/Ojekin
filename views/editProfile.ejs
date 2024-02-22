@@ -9,10 +9,10 @@
 
 <body>
     <!-- navbar -->
-    
+    <%- include('_navbar') %>
 
         <!-- main content -->
-        <h1>
+        <h1 class="row justify-content-center">
             <%= data.Driver.username %> Profile!
         </h1>
 
@@ -31,29 +31,34 @@
                 </div>
                 <% } %>
 
-                    <form class="w-50 p-3" method="post">
-                        <div class="mb-3">
-                            <label class="form-label">Name</label>
-                            <input name="name" value="<%= data.name %>" type="text" class="form-control">
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Profile Picture</label>
-                            <input name="profilePicture" value="<%= data.profilePicture %>" type="text"
-                                class="form-control">
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Phone Number</label>
-                            <input name="phoneNumber" value="<%= data.phoneNumber %>" type="number"
-                                class="form-control">
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">License Plate</label>
-                            <input name="licensePlate" value="<%= data.licensePlate %>" type="text"
-                                class="form-control">
-                        </div>
+                    <!-- edit driver form -->
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <form class="w-50 p-3 " method="post">
+                                <div class="mb-3">
+                                    <label class="form-label">Name</label>
+                                    <input name="name" value="<%= data.name %>" type="text" class="form-control">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Profile Picture</label>
+                                    <input name="profilePicture" value="<%= data.profilePicture %>" type="text"
+                                        class="form-control">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Phone Number</label>
+                                    <input name="phoneNumber" value="<%= data.phoneNumber %>" type="number"
+                                        class="form-control">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">License Plate</label>
+                                    <input name="licensePlate" value="<%= data.licensePlate %>" type="text"
+                                        class="form-control">
+                                </div>
 
-                        <button type="submit" class="btn btn-primary">Save</button>
-                    </form>
+                                <button type="submit" class="btn btn-primary">Save</button>
+                            </form>
+                        </div>
+                    </div>
 
                     <!-- boostrap -->
                     <%- include('_boostrap') %>

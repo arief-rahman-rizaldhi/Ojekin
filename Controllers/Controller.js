@@ -344,7 +344,7 @@ class Controller {
     }
 
     static async findCustomer(req, res) {
-        const { id } = req.params;
+        const { id,UserId } = req.params;
         try {
 
             // await DriverProfile.destroy({ where: { DriverId: id } });
