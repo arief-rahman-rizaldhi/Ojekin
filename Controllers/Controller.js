@@ -1,7 +1,8 @@
 
 const bcrypt = require('bcryptjs')
-const { User, UserProfile, Driver, DriverProfile,Order } = require('../models')
+const { User, UserProfile, Driver, DriverProfile, Order } = require('../models')
 const session = require('express-session')
+const { toRupiah } = require('../helper/formatters')
 const { DataTypes, Op, where } = require('sequelize')
 // const easyinvoice = require('easyinvoice');
 // const PDFNode = require('pdf-node');
@@ -140,21 +141,22 @@ class Controller {
         try {
             let { id } = req.params
             let data = await User.findByPk(id, { include: UserProfile })
-            let drivers= await Driver.findAll({include:DriverProfile})
+            // let drivers= await Driver.findAll()
+            let drivers = await Driver.findAll({ include: DriverProfile })
             // res.send(drivers)
-            res.render('userHome', { data,drivers })
+            res.render('userHome', { data, drivers })
         } catch (error) {
             console.log(error)
             res.send(error)
         }
     }
-    static async saveFormOrders(req,res){
+    static async saveFormOrders(req, res) {
         try {
-            let {origin,destination,DriverId}=req.body
-            let {id}=req.params
+            let { origin, destination, DriverId } = req.body
+            let { id } = req.params
             // console.log(req.body)
             await Order.create({
-                UserId:id,
+                UserId: id,
                 origin,
                 destination,
                 DriverId
@@ -250,7 +252,7 @@ class Controller {
         }
     }
 
-    
+
 
 
     static async showDriverPage(req, res) {
@@ -360,10 +362,10 @@ class Controller {
         const { id, UserId } = req.params;
         try {
             console.log(req.params)
-        let data1=await Order.findOne({where:{UserId:id},include:{model:User,include:{model:UserProfile}}})
-        let data2=await Order.findOne({where:{DriverId:id},include:{model:Driver,include:{model:DriverProfile}}})
-        //    res.send(data3)
-        res.render('findCustomer',{data1,data2})
+            let data1 = await Order.findOne({ where: { UserId: id }, include: { model: User, include: { model: UserProfile } } })
+            let data2 = await Order.findOne({ where: { DriverId: id }, include: { model: Driver, include: { model: DriverProfile } } })
+            //    res.send(data3)
+            res.render('findCustomer', { data1, data2 })
             // await DriverProfile.destroy({ where: { DriverId: id } });
             // res.render('findCustomer');
         } catch (error) {
@@ -372,14 +374,14 @@ class Controller {
         }
     }
 
-    static async postFindCustomer(req,res){
+    static async postFindCustomer(req, res) {
         try {
-            let {price}=req.body
-            let {id}=req.params
-            
+            let { price } = req.body
+            let { id } = req.params
+
             await Order.update({
                 price
-            },{where:{price:null}})
+            }, { where: { price: null } })
             res.redirect(`/driver/${id}`)
         } catch (error) {
             console.log(error)
@@ -390,17 +392,17 @@ class Controller {
     static async orderForm(req, res) {
         const { id, UserId } = req.params;
         try {
-            
-           let data1=await Order.findOne({where:{UserId:id},include:{model:User,include:{model:UserProfile}}})
-           let data2=await Order.findOne({where:{DriverId:id},include:{model:Driver,include:{model:DriverProfile}}})
-        //    res.send(data2)
-        res.render('orderForm',{data1,data2})
+
+            let data1 = await Order.findOne({ where: { UserId: id }, include: { model: User, include: { model: UserProfile } } })
+            let data2 = await Order.findOne({ where: { DriverId: id }, include: { model: Driver, include: { model: DriverProfile } } })
+            //    res.send(data2)
+            res.render('orderForm', { data1, data2, toRupiah })
         } catch (error) {
             console.log(error);
             res.send(error.message);
         }
     }
-    
+
     // static async showInvoice(req, res) {
     //     try {
     //         let order = await Order.findAll();
@@ -423,20 +425,20 @@ class Controller {
     //             "products": [],
     //             "bottomNotice": "Kindly pay your invoice within 15 days."
     //         };
-    
+
     //         for (let orders of order) {
     //             invoiceData.products.push({
     //                 "description": `Transportation Service from ${orders.origin} to ${orders.destination}`,
     //                 "price": orders.price
     //             });
     //         }
-    
+
     //         const pdf = await PDFNode.renderPDF(invoiceData);
-    
+
     //         // Simpan PDF ke file
     //         const fileName = 'invoice.pdf';
     //         fs.writeFileSync(fileName, pdf);
-    
+
     //         // Kirimkan PDF sebagai respons
     //         res.download(fileName, fileName);
     //     } catch (error) {

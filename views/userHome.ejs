@@ -53,7 +53,7 @@
               <select class="form-select" aria-label="Default select example" name="DriverId">
                 <option selected disabled>Open this select menu</option>
                 <% drivers.forEach(el => { %>
-                    <option value="<%=el.id %>"><%=el.DriverProfile.name %></option>
+                    <option value="<%=el.id %>"><%=el.username %></option>
                 <% }) %>
               </select>
               <button type="submit" class="btn btn-primary btn-block">Submit</button>

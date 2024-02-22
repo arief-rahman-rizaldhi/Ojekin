@@ -4,10 +4,14 @@ const {
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Order extends Model {
-   
+
     static associate(models) {
       Order.belongsTo(models.User);
       Order.belongsTo(models.Driver);
+    }
+
+    get tanggalOrder() {
+      return this.createdAt.toLocaleString("id-ID", { timeStyle: "short", dateStyle: "long" });
     }
   }
   Order.init({

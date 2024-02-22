@@ -28,41 +28,50 @@
                 <div class="mb-3">
                     <label for="disabledTextInput" class="form-label">Destination</label>
                     <div class="d-flex justify-content-between w-100 p-3">
-                        
+
                         <input value="<%=data1.destination %>" type="text" id="disabledTextInput" class="form-control"
                             placeholder="Disabled input">
                     </div>
                 </div>
 
                 <div class="mb-3">
-                  <label for="disabledTextInput" class="form-label">Costomer</label>
-                  <div class="d-flex justify-content-between w-100 p-3">
-                      
-                      <input value="<%=data1.User.UserProfile.name %>" type="text" id="disabledTextInput" class="form-control"
-                          placeholder="Disabled input">
-                  </div>
-              </div>
+                    <label for="disabledTextInput" class="form-label">Tanggal Order</label>
+                    <div class="d-flex justify-content-between w-100 p-3">
 
-              <div class="mb-3">
-                <label for="disabledTextInput" class="form-label">Costomer</label>
-                <div class="d-flex justify-content-between w-100 p-3">
-                    
-                    <input value="<%=data2.Driver.DriverProfile.name %>" type="text" id="disabledTextInput" class="form-control"
-                        placeholder="Disabled input">
+                        <input value="<%=data1.tanggalOrder %>" type="text" id="disabledTextInput" class="form-control"
+                            placeholder="Disabled input">
+                    </div>
                 </div>
-            </div>
+
+                <div class="mb-3">
+                    <label for="disabledTextInput" class="form-label">Costomer</label>
+                    <div class="d-flex justify-content-between w-100 p-3">
+
+                        <input value="<%=data1.User.UserProfile.name %>" type="text" id="disabledTextInput"
+                            class="form-control" placeholder="Disabled input">
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="disabledTextInput" class="form-label">Driver</label>
+                    <div class="d-flex justify-content-between w-100 p-3">
+
+                        <input value="<%=data2.Driver.DriverProfile.name %>" type="text" id="disabledTextInput"
+                            class="form-control" placeholder="Disabled input">
+                    </div>
+                </div>
             </fieldset>
 
             <form>
                 <label class="form-label">Price</label>
                 <div class="mb-3 d-flex justify-content-between w-100 p-3">
-                    <input class="form-control" type="text" value="<%=data1.price %>" disabled>
+                    <input class="form-control" type="text" value="<%=toRupiah(data1.price) %>" disabled>
                 </div>
                 <% if (data1.price !==null ) { %>
-                  <div class="row justify-content-center w-100 p-3">
-                    <a class="btn btn-primary" href="/invoice" role="button">Link</a>
-                  </div>
-                <% } %>
+                    <div class="row justify-content-center w-100 p-3">
+                        <a class="btn btn-primary" href="/invoice" role="button">Link</a>
+                    </div>
+                    <% } %>
             </form>
         </div>
     </div>
@@ -70,8 +79,8 @@
 
 
 
-            <!-- boostrap -->
-            <%- include('_boostrap') %>
+    <!-- boostrap -->
+    <%- include('_boostrap') %>
 
 </body>
 
