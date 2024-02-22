@@ -2,6 +2,7 @@
 const {
   Model
 } = require('sequelize');
+const bcrypt = require('bcryptjs')
 module.exports = (sequelize, DataTypes) => {
   class Driver extends Model {
 
@@ -23,6 +24,13 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Driver',
+    hooks:{
+      beforeCreate(value){
+        const salt = bcrypt.genSaltSync(10);
+        const hash = bcrypt.hashSync(value.password, salt);
+        value.password=hash
+      }
+    }
   });
   return Driver;
 };

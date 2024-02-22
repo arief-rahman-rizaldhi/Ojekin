@@ -1,3 +1,5 @@
+
+const bcrypt = require('bcryptjs')
 const { User, UserProfile, Driver, DriverProfile } = require('../models')
 
 
@@ -13,13 +15,25 @@ class Controller {
     }
     static async saveRegister(req, res) {
         try {
-            let { userName, email, password } = req.body
-            await User.create({
-                userName,
-                email,
-                password
-            })
-            res.redirect('/')
+            let {username,email,password,role}=req.body
+            console.log(req.body)
+            if(role==='User'){
+                return await User.create({
+                    username,
+                    email,
+                    password,
+                    role
+                })
+            }
+            if(role==='Driver'){
+                await Driver.create({
+                    username,
+                    email,
+                    password,
+                    role
+                })
+            }
+            res.redirect('/login')
         } catch (error) {
             console.log(error)
             res.send(error)
@@ -37,15 +51,33 @@ class Controller {
     }
     static async saveLogin(req, res) {
         try {
-            console.log(req.body)
-            let { userName, password } = req.body
-            let data = await User.findAll({
-                where: {
-                    userName: userName,
-                    password: password
+            let {username,password,role}=req.body
+            
+            if(role==='User'){
+                await User.findOne({where:{username}})
+                .then(User=>{
+                    const validPassword = bcrypt.compareSync(password, User.password); 
+                    if(validPassword){
+                        return res.redirect('/')
+                    }
+                    else{
+                        const error = 'Username/password salah'
+                        return res.redirect(`/login?error=${error}`)
+                    }})
+            }
+            if(role==='Driver'){
+                await Driver.findOne({where:{username}})
+                .then(Driver=>{
+                const validPassword = bcrypt.compareSync(password, Driver.password); 
+                if(validPassword){
+                    return res.redirect('/')
                 }
-            })
-            res.send(data)
+                else{
+                    const error = 'Username/password salah'
+                    return res.redirect(`/login?error=${error}`)
+                }
+                })
+            }
         } catch (error) {
             console.log(error)
             res.send(error)
@@ -53,14 +85,7 @@ class Controller {
     }
     static async home(req, res) {
         try {
-            console.log(req.body)
-            let { userName, password } = req.body
-            let data = await User.findAll({
-                where: {
-                    userName: userName,
-                    password: password
-                }
-            })
+            let data=await User.findAll()
             res.send(data)
         } catch (error) {
             console.log(error)
