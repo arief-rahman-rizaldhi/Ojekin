@@ -116,7 +116,7 @@ class Controller {
             const validPassword = bcrypt.compareSync(password, user.password);
             if (validPassword) {
                 req.session.userId = user.id;
-                return res.redirect(`/home/${user.id}`);
+                return res.redirect(`/driver/${user.id}`);
             } else {
                 const error = 'Username/password salah';
                 return res.redirect(`/login?error=${error}`);
@@ -333,7 +333,7 @@ class Controller {
     }
 
     static async findCustomer(req, res) {
-        const { id } = req.params;
+        const { id,UserId } = req.params;
         try {
 
             // await DriverProfile.destroy({ where: { DriverId: id } });
