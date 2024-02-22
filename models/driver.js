@@ -5,7 +5,7 @@ const {
 const bcrypt = require('bcryptjs')
 module.exports = (sequelize, DataTypes) => {
   class Driver extends Model {
-    
+
     static associate(models) {
       Driver.hasOne(models.DriverProfile);
       Driver.hasMany(models.Order);

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- navbar -->
+    <%- include('_navbar') %>
+
+        <!-- main content -->
+        <fieldset disabled>
+            <div class="mb-3">
+                <label for="disabledTextInput" class="form-label">User Location</label>
+                <div class="d-flex justify-content-between w-75 p-3">
+                    <img class="w-25"
+                        src="User_follower_icons_social_media_notification_icon_in_speech_bubbles_vector_illustration.jpg">
+                    <input value="alamat jemput" type="text" id="disabledTextInput" class="form-control"
+                        placeholder="Disabled input">
+                </div>
+
+            </div>
+            <div class="mb-3">
+                <label for="disabledTextInput" class="form-label">Destination</label>
+                <div class="d-flex justify-content-between w-75 p-3">
+                    <img class="w-25" src="Location Pins Route.jpg">
+                    <input value="alamat yang dituju" type="text" id="disabledTextInput" class="form-control"
+                        placeholder="Disabled input">
+                </div>
+            </div>
+        </fieldset>
+
+        <!-- boostrap -->
+        <%- include('_boostrap') %>
+
+</body>
+
+</html>

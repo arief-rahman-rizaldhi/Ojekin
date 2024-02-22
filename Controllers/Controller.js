@@ -1,5 +1,7 @@
-const {User,UserProfile,Driver} = require('../models')
+
 const bcrypt = require('bcryptjs')
+const { User, UserProfile, Driver, DriverProfile } = require('../models')
+
 
 class Controller {
     static async register(req, res) {
@@ -88,6 +90,16 @@ class Controller {
         } catch (error) {
             console.log(error)
             res.send(error)
+        }
+    }
+
+    static async showDriverPage(req, res) {
+        try {
+            const data = await Driver.findAll();
+            res.render('driverPage', { data });
+        } catch (error) {
+            console.log(error);
+            res.send(error.message);
         }
     }
 
