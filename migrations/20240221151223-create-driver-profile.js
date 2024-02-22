@@ -16,13 +16,13 @@ module.exports = {
       profilePicture: {
         type: Sequelize.STRING
       },
-      PhoneNumber: {
+      phoneNumber: {
         allowNull: false,
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
       },
       licensePlate: {
         allowNull: false,
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,
