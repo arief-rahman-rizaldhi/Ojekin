@@ -1,7 +1,12 @@
 
 const bcrypt = require('bcryptjs')
-const { User, UserProfile, Driver, DriverProfile } = require('../models')
+const { User, UserProfile, Driver, DriverProfile, Order } = require('../models')
 const session = require('express-session')
+const { toRupiah } = require('../helper/formatters')
+const { DataTypes, Op, where } = require('sequelize')
+// const easyinvoice = require('easyinvoice');
+// const PDFNode = require('pdf-node');
+// const fs = require('fs');
 
 
 class Controller {
@@ -136,8 +141,27 @@ class Controller {
         try {
             let { id } = req.params
             let data = await User.findByPk(id, { include: UserProfile })
-            // res.send(data)
-            res.render('userHome', { data })
+            // let drivers= await Driver.findAll()
+            let drivers = await Driver.findAll({ include: DriverProfile })
+            // res.send(drivers)
+            res.render('userHome', { data, drivers })
+        } catch (error) {
+            console.log(error)
+            res.send(error)
+        }
+    }
+    static async saveFormOrders(req, res) {
+        try {
+            let { origin, destination, DriverId } = req.body
+            let { id } = req.params
+            // console.log(req.body)
+            await Order.create({
+                UserId: id,
+                origin,
+                destination,
+                DriverId
+            })
+            res.redirect(`/orders/${id}`)
         } catch (error) {
             console.log(error)
             res.send(error)
@@ -227,6 +251,8 @@ class Controller {
             res.send(error)
         }
     }
+
+
 
 
     static async showDriverPage(req, res) {
@@ -335,27 +361,91 @@ class Controller {
     static async findCustomer(req, res) {
         const { id, UserId } = req.params;
         try {
-            res.render('findCustomer');
+            console.log(req.params)
+            let data1 = await Order.findOne({ where: { UserId: id }, include: { model: User, include: { model: UserProfile } } })
+            let data2 = await Order.findOne({ where: { DriverId: id }, include: { model: Driver, include: { model: DriverProfile } } })
+            //    res.send(data3)
+            res.render('findCustomer', { data1, data2 })
+            // await DriverProfile.destroy({ where: { DriverId: id } });
+            // res.render('findCustomer');
         } catch (error) {
             console.log(error);
             res.send(error.message);
         }
     }
 
+    static async postFindCustomer(req, res) {
+        try {
+            let { price } = req.body
+            let { id } = req.params
+
+            await Order.update({
+                price
+            }, { where: { price: null } })
+            res.redirect(`/driver/${id}`)
+        } catch (error) {
+            console.log(error)
+            res.send(error)
+        }
+    }
+
     static async orderForm(req, res) {
         const { id, UserId } = req.params;
         try {
-            const driver = await DriverProfile.findAll({
-                include: {
-                    model: Driver
-                },
-            });
-            res.render('orderForm', { driver });
+
+            let data1 = await Order.findOne({ where: { UserId: id }, include: { model: User, include: { model: UserProfile } } })
+            let data2 = await Order.findOne({ where: { DriverId: id }, include: { model: Driver, include: { model: DriverProfile } } })
+            //    res.send(data2)
+            res.render('orderForm', { data1, data2, toRupiah })
         } catch (error) {
             console.log(error);
             res.send(error.message);
         }
     }
+
+    // static async showInvoice(req, res) {
+    //     try {
+    //         let order = await Order.findAll();
+    //         const invoiceData = {
+    //             "currency": "IDR",
+    //             "taxNotation": "vat",
+    //             "marginTop": 25,
+    //             "marginRight": 25,
+    //             "marginLeft": 25,
+    //             "marginBottom": 25,
+    //             "client": {
+    //                 "company": "Client Corp",
+    //                 "address": "Clientstreet 456",
+    //                 "zip": "4567 CD",
+    //                 "city": "Clientcity",
+    //                 "country": "Clientcountry"
+    //             },
+    //             "invoiceNumber": "20220001",
+    //             "invoiceDate": new Date(order[0].createdAt).toDateString(),
+    //             "products": [],
+    //             "bottomNotice": "Kindly pay your invoice within 15 days."
+    //         };
+
+    //         for (let orders of order) {
+    //             invoiceData.products.push({
+    //                 "description": `Transportation Service from ${orders.origin} to ${orders.destination}`,
+    //                 "price": orders.price
+    //             });
+    //         }
+
+    //         const pdf = await PDFNode.renderPDF(invoiceData);
+
+    //         // Simpan PDF ke file
+    //         const fileName = 'invoice.pdf';
+    //         fs.writeFileSync(fileName, pdf);
+
+    //         // Kirimkan PDF sebagai respons
+    //         res.download(fileName, fileName);
+    //     } catch (error) {
+    //         console.error("Error:", error);
+    //         res.status(500).send(error.message);
+    //     }
+    // }
 
 }
 module.exports = Controller

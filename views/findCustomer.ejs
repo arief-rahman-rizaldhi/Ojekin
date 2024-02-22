@@ -20,7 +20,7 @@
                     <div class="d-flex justify-content-between w-100 p-3">
                         <img class="w-25"
                             src="User_follower_icons_social_media_notification_icon_in_speech_bubbles_vector_illustration.jpg">
-                        <input value="alamat jemput" type="text" id="disabledTextInput" class="form-control"
+                        <input value="<%=data1.origin %>" type="text" id="disabledTextInput" class="form-control"
                             placeholder="Disabled input">
                     </div>
 
@@ -28,18 +28,43 @@
                 <div class="mb-3">
                     <label for="disabledTextInput" class="form-label">Destination</label>
                     <div class="d-flex justify-content-between w-100 p-3">
-                        <img class="w-25" src="Location Pins Route.jpg">
-                        <input value="alamat yang dituju" type="text" id="disabledTextInput" class="form-control"
+                        
+                        <input value="<%=data1.destination %>" type="text" id="disabledTextInput" class="form-control"
                             placeholder="Disabled input">
                     </div>
                 </div>
+
+                <div class="mb-3">
+                  <label for="disabledTextInput" class="form-label">Costomer</label>
+                  <div class="d-flex justify-content-between w-100 p-3">
+                      
+                      <input value="<%=data1.User.UserProfile.name %>" type="text" id="disabledTextInput" class="form-control"
+                          placeholder="Disabled input">
+                  </div>
+              </div>
+
+              <div class="mb-3">
+                <label for="disabledTextInput" class="form-label">Costomer</label>
+                <div class="d-flex justify-content-between w-100 p-3">
+                    
+                    <input value="<%=data2.Driver.DriverProfile.name %>" type="text" id="disabledTextInput" class="form-control"
+                        placeholder="Disabled input">
+                </div>
+            </div>
             </fieldset>
 
-            <form>
+            <form method="post">
                 <label class="form-label">Price</label>
                 <div class="mb-3 d-flex justify-content-between w-100 p-3">
-                    <input class="form-control" type="number">
+                    <input class="form-control" type="text" name="price">
                 </div>
+                <!-- <div class="mb-3">
+                    <label for="disabledTextInput" class="form-label">Date</label>
+                    <div class="d-flex justify-content-between w-100 p-3">
+                        <input value="" type="text" id="disabledTextInput" class="form-control"
+                            disabled name="createdAt">
+                    </div>
+                </div> -->
                 <div class="row justify-content-center w-100 p-3">
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
@@ -48,26 +73,10 @@
     </div>
 
 
-    <div class="container w-50 p-3">
-        <div class="row justify-content-center">
-            <div class="card w-50 p-3 " style="width: 18rem;">
-                <h4>Profile User</h4>
-                <img src="" class="card-img-top">
-                <div class="card-body">
-                    <h5 class="card-title">
-                        nama user
-                    </h5>
-                </div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Address:
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
 
-    <!-- boostrap -->
-    <%- include('_boostrap') %>
+
+            <!-- boostrap -->
+            <%- include('_boostrap') %>
 
 </body>
 

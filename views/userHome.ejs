@@ -23,7 +23,7 @@
                 <a class="nav-link" href="/profilUser/<%=data.id %>">Profil</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">Order</a>
+                <a class="nav-link" href="/orders/<%=data.id %>">Order</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="/logout">logOut</a>
@@ -39,15 +39,23 @@
         <div class="col-md-6">
           <div class="form-container">
             <h2 class="text-center mb-4">Form Jemput Antar</h2>
-            <form>
+            <form method="post">
               <div class="form-group">
                 <label for="jemput">Jemput</label>
-                <input type="text" class="form-control" id="jemput" placeholder="Alamat Penjemputan">
+                <input type="text" class="form-control" id="jemput" placeholder="Alamat Penjemputan" name="origin">
               </div>
               <div class="form-group">
                 <label for="antar">Antar</label>
-                <input type="text" class="form-control" id="antar" placeholder="Alamat Pengantaran">
+                <input type="text" class="form-control" id="antar" placeholder="Alamat Pengantaran" name="destination">
               </div>
+
+              <label for="">Driver</label>
+              <select class="form-select" aria-label="Default select example" name="DriverId">
+                <option selected disabled>Open this select menu</option>
+                <% drivers.forEach(el => { %>
+                    <option value="<%=el.id %>"><%=el.username %></option>
+                <% }) %>
+              </select>
               <button type="submit" class="btn btn-primary btn-block">Submit</button>
             </form>
           </div>

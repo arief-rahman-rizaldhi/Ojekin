@@ -15,42 +15,72 @@
     <div class="container w-50 p-3">
         <div class="row justify-content-center">
             <fieldset disabled>
-                <form>
-                    <label class="form-label">Price</label>
-                    <div class="mb-3 d-flex justify-content-between w-100 p-3">
-                        <input class="form-control" type="text">
+                <div class="mb-3">
+                    <label for="disabledTextInput" class="form-label">User Location</label>
+                    <div class="d-flex justify-content-between w-100 p-3">
+                        <img class="w-25"
+                            src="User_follower_icons_social_media_notification_icon_in_speech_bubbles_vector_illustration.jpg">
+                        <input value="<%=data1.origin %>" type="text" id="disabledTextInput" class="form-control"
+                            placeholder="Disabled input">
                     </div>
-                </form>
+
+                </div>
+                <div class="mb-3">
+                    <label for="disabledTextInput" class="form-label">Destination</label>
+                    <div class="d-flex justify-content-between w-100 p-3">
+
+                        <input value="<%=data1.destination %>" type="text" id="disabledTextInput" class="form-control"
+                            placeholder="Disabled input">
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="disabledTextInput" class="form-label">Tanggal Order</label>
+                    <div class="d-flex justify-content-between w-100 p-3">
+
+                        <input value="<%=data1.tanggalOrder %>" type="text" id="disabledTextInput" class="form-control"
+                            placeholder="Disabled input">
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="disabledTextInput" class="form-label">Costomer</label>
+                    <div class="d-flex justify-content-between w-100 p-3">
+
+                        <input value="<%=data1.User.UserProfile.name %>" type="text" id="disabledTextInput"
+                            class="form-control" placeholder="Disabled input">
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="disabledTextInput" class="form-label">Driver</label>
+                    <div class="d-flex justify-content-between w-100 p-3">
+
+                        <input value="<%=data2.Driver.DriverProfile.name %>" type="text" id="disabledTextInput"
+                            class="form-control" placeholder="Disabled input">
+                    </div>
+                </div>
             </fieldset>
+
+            <form>
+                <label class="form-label">Price</label>
+                <div class="mb-3 d-flex justify-content-between w-100 p-3">
+                    <input class="form-control" type="text" value="<%=toRupiah(data1.price) %>" disabled>
+                </div>
+                <% if (data1.price !==null ) { %>
+                    <div class="row justify-content-center w-100 p-3">
+                        <a class="btn btn-primary" href="/invoice" role="button">Link</a>
+                    </div>
+                    <% } %>
+            </form>
         </div>
     </div>
 
 
-    <% driver.forEach(el=> { %>
-        <div class="container w-50 p-3">
-            <div class="row justify-content-center">
-                <div class="card w-50 p-3 " style="width: 18rem;">
-                    <h4>Profile User</h4>
-                    <img src="" class="card-img-top">
-                    <div class="card-body">
-                        <h5 class="card-title">
-                            <%= el.name %> nama driver
-                        </h5>
-                    </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">License Plate: <%= el.licensePlate %>
-                        </li>
-                    </ul>
-                    <ul class="list-group list-group-flush">
-                        <button>Select Driver</button>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <% }) %>
 
-            <!-- boostrap -->
-            <%- include('_boostrap') %>
+
+    <!-- boostrap -->
+    <%- include('_boostrap') %>
 
 </body>
 
