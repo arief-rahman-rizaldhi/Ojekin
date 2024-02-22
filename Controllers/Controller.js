@@ -231,8 +231,11 @@ class Controller {
 
     static async orderForm(req,res){
         try {
-            let data= await Driver.findAll({include:DriverProfile})
-            res.send(data)
+            let data1= await DriverProfile.findAll()
+            
+            
+            // res.send(data1)
+            res.render('orderForm',{data1})
         } catch (error) {
             console.log(error)
             res.send(error)
