@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
       User.hasOne(models.UserProfile, { foreignKey: 'UserId' });
       User.hasMany(models.Order)
       User.belongsToMany(models.Driver, { 
-        through: Order, 
+        through: models.Order, 
         foreignKey: "UserId",
         otherKey:"DriverId" 
       });

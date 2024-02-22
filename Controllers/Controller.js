@@ -83,7 +83,6 @@ class Controller {
     }
     static async home(req, res) {
         try {
-            
             let data=await User.findAll()
             res.send(data)
         } catch (error) {

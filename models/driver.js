@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
       Driver.hasOne(models.DriverProfile);
       Driver.hasMany(models.Order);
       Driver.belongsToMany(models.User, {
-        through: Order,
+        through: models.Order,
         foreignKey: "DriverId",
         otherKey: "UserId"
       });
