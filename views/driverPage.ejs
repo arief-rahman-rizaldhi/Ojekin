@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- navbar -->
+    <%- include('_navbar') %>
+
+        <!-- main content -->
+        <h1>Welcome <%= data.name %>!</h1>
+
+        <div>
+            <a class="btn btn-primary" href="/driver/order" role="button">Order</a>
+            <a class="btn btn-primary" href="/driver/profile" role="button">Setting Profile</a>
+        </div>
+
+        <!-- boostrap -->
+        <%- include('_boostrap') %>
+
+</body>
+
+</html>
