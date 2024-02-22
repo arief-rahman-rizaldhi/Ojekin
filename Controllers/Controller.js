@@ -1,8 +1,8 @@
 const {User,UserProfile,Driver} = require('../models')
 const bcrypt = require('bcryptjs')
 
-class Controller{
-    static async register(req,res){
+class Controller {
+    static async register(req, res) {
         try {
             let data = await User.findAll()
             res.render('registerUser')
@@ -11,7 +11,7 @@ class Controller{
             res.send(error)
         }
     }
-    static async saveRegister(req,res){
+    static async saveRegister(req, res) {
         try {
             let {username,email,password,role}=req.body
             console.log(req.body)
@@ -37,7 +37,7 @@ class Controller{
             res.send(error)
         }
     }
-    static async login(req,res){
+    static async login(req, res) {
         try {
             // let data = await User.findAll()
             // res.send(data)
@@ -47,7 +47,7 @@ class Controller{
             res.send(error)
         }
     }
-    static async saveLogin(req,res){
+    static async saveLogin(req, res) {
         try {
             let {username,password,role}=req.body
             
@@ -81,7 +81,7 @@ class Controller{
             res.send(error)
         }
     }
-    static async home(req,res){
+    static async home(req, res) {
         try {
             
             let data=await User.findAll()
@@ -93,4 +93,4 @@ class Controller{
     }
 
 }
-module.exports=Controller
+module.exports = Controller
