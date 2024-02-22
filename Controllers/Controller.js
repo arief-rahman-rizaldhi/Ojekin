@@ -335,8 +335,6 @@ class Controller {
     static async findCustomer(req, res) {
         const { id, UserId } = req.params;
         try {
-
-            // await DriverProfile.destroy({ where: { DriverId: id } });
             res.render('findCustomer');
         } catch (error) {
             console.log(error);
@@ -347,8 +345,11 @@ class Controller {
     static async orderForm(req, res) {
         const { id, UserId } = req.params;
         try {
-            const driver = await Driver.findAll();
-            // await DriverProfile.destroy({ where: { DriverId: id } });
+            const driver = await DriverProfile.findAll({
+                include: {
+                    model: Driver
+                },
+            });
             res.render('orderForm', { driver });
         } catch (error) {
             console.log(error);
