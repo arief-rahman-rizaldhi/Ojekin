@@ -9,5 +9,7 @@ router.post('/:id/profile/add', Controller.createDriverProfile);
 router.get('/:id/profile/edit', Controller.editDriverProfile);
 router.post('/:id/profile/edit', Controller.updateDriverProfile);
 router.get('/:id/profile/delete', Controller.deleteDriverAccount);
+router.get('/:id/order', Controller.findCustomer);
+router.post('/:id/order', Controller.postFindCustomer);
 
 module.exports = router;
