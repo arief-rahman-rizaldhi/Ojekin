@@ -2,6 +2,7 @@
 const bcrypt = require('bcryptjs')
 const { User, UserProfile, Driver, DriverProfile } = require('../models')
 const session = require('express-session')
+const { DataTypes } = require('sequelize')
 
 
 class Controller {
@@ -116,7 +117,7 @@ class Controller {
             const validPassword = bcrypt.compareSync(password, user.password);
             if (validPassword) {
                 req.session.userId = user.id;
-                return res.redirect(`/home/${user.id}`);
+                return res.redirect(`/driver/${user.id}`);
             } else {
                 const error = 'Username/password salah';
                 return res.redirect(`/login?error=${error}`);
@@ -222,6 +223,16 @@ class Controller {
                     res.redirect('/login')
                 }
             })
+        } catch (error) {
+            console.log(error)
+            res.send(error)
+        }
+    }
+
+    static async orderForm(req,res){
+        try {
+            let data= await Driver.findAll({include:DriverProfile})
+            res.send(data)
         } catch (error) {
             console.log(error)
             res.send(error)
