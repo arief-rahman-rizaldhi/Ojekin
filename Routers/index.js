@@ -28,7 +28,7 @@ router.post('/addUserProfile/:id', Controller.saveAddProfile)
 router.get('/editUser/profile/:id', Controller.userEdit)
 router.post('/editUser/profile/:id', Controller.saveEditProfile)
 router.get('/logout', Controller.logoutUser)
-// router.get('/invoice', Controller.showInvoice)
+router.get('/invoice', Controller.showInvoice)
 
 router.get('/orders/:id', Controller.orderForm)
 

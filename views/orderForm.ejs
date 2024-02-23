@@ -65,12 +65,20 @@
             <form>
                 <label class="form-label">Price</label>
                 <div class="mb-3 d-flex justify-content-between w-100 p-3">
-                    <input class="form-control" type="text" value="<%=toRupiah(data1.price) %>" disabled>
+                    <% if (data1.price==null) { %>
+                        <input class="form-control" type="text" value="<%=data1.price %>" disabled>
+                        <% } else { %>
+                            <input class="form-control" type="text" value="<%=toRupiah(data1.price) %>" disabled>
+                            <% } %>
                 </div>
                 <% if (data1.price !==null ) { %>
                     <div class="row justify-content-center w-100 p-3">
                         <a class="btn btn-primary" href="/invoice" role="button">Link</a>
                     </div>
+                    <% } else { %>
+                        <div class="row justify-content-center w-100 p-3">
+                            <a class="btn btn-primary" href="/login" role="button">Link</a>
+                        </div>
                     <% } %>
             </form>
         </div>
