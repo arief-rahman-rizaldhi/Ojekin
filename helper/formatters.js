@@ -5,4 +5,8 @@ function toRupiah(value) {
     });
 }
 
-module.exports = { toRupiah }
+function toDateIndonesia(value) {
+    return value.toLocaleString("id-ID", { dateStyle: "long" })
+}
+
+module.exports = { toRupiah, toDateIndonesia }

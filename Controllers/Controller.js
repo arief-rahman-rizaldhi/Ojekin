@@ -2,11 +2,9 @@
 const bcrypt = require('bcryptjs')
 const { User, UserProfile, Driver, DriverProfile, Order } = require('../models')
 const session = require('express-session')
-const { toRupiah } = require('../helper/formatters')
+const { toRupiah, toDateIndonesia } = require('../helper/formatters')
 const { DataTypes, Op, where } = require('sequelize')
-// const easyinvoice = require('easyinvoice');
-// const PDFNode = require('pdf-node');
-// const fs = require('fs');
+const easyinvoice = require('easyinvoice');
 
 
 class Controller {
@@ -366,8 +364,6 @@ class Controller {
             let data2 = await Order.findOne({ where: { DriverId: id }, include: { model: Driver, include: { model: DriverProfile } } })
             //    res.send(data3)
             res.render('findCustomer', { data1, data2 })
-            // await DriverProfile.destroy({ where: { DriverId: id } });
-            // res.render('findCustomer');
         } catch (error) {
             console.log(error);
             res.send(error.message);
@@ -381,7 +377,7 @@ class Controller {
 
             await Order.update({
                 price
-            }, { where: { price: null } })
+            }, { where: { price: {[Op.is]: null} } })
             res.redirect(`/driver/${id}`)
         } catch (error) {
             console.log(error)
@@ -403,49 +399,42 @@ class Controller {
         }
     }
 
-    // static async showInvoice(req, res) {
-    //     try {
-    //         let order = await Order.findAll();
-    //         const invoiceData = {
-    //             "currency": "IDR",
-    //             "taxNotation": "vat",
-    //             "marginTop": 25,
-    //             "marginRight": 25,
-    //             "marginLeft": 25,
-    //             "marginBottom": 25,
-    //             "client": {
-    //                 "company": "Client Corp",
-    //                 "address": "Clientstreet 456",
-    //                 "zip": "4567 CD",
-    //                 "city": "Clientcity",
-    //                 "country": "Clientcountry"
-    //             },
-    //             "invoiceNumber": "20220001",
-    //             "invoiceDate": new Date(order[0].createdAt).toDateString(),
-    //             "products": [],
-    //             "bottomNotice": "Kindly pay your invoice within 15 days."
-    //         };
+    static async showInvoice(req, res) {
+        try {
+            let order = await Order.findAll();
+            const invoiceData = {
+                "currency": "IDR",
+                "taxNotation": "vat",
+                "marginTop": 25,
+                "marginRight": 25,
+                "marginLeft": 25,
+                "marginBottom": 25,
+                "client": {
+                    "company": "Client Corp",
+                    "address": "Clientstreet 456",
+                    "zip": "4567 CD",
+                    "city": "Clientcity",
+                    "country": "Clientcountry"
+                },
+                "invoiceNumber": "20220001",
+                "invoiceDate": new Date(order[0].createdAt).toDateString(),
+                "products": [],
+                "bottomNotice": "Terima kasih sudah menggunakan jasa Ojekin."
+            };
 
-    //         for (let orders of order) {
-    //             invoiceData.products.push({
-    //                 "description": `Transportation Service from ${orders.origin} to ${orders.destination}`,
-    //                 "price": orders.price
-    //             });
-    //         }
+            for (let orders of order) {
+                invoiceData.products.push({
+                    "description": `Transportation Service from ${orders.origin} to ${orders.destination}`,
+                    "price": orders.price
+                });
+            }
 
-    //         const pdf = await PDFNode.renderPDF(invoiceData);
-
-    //         // Simpan PDF ke file
-    //         const fileName = 'invoice.pdf';
-    //         fs.writeFileSync(fileName, pdf);
-
-    //         // Kirimkan PDF sebagai respons
-    //         res.download(fileName, fileName);
-    //     } catch (error) {
-    //         console.error("Error:", error);
-    //         res.status(500).send(error.message);
-    //     }
-    // }
+            res.render("invoice", { invoiceData, toRupiah, toDateIndonesia });
+        } catch (error) {
+            console.error("Error:", error);
+            res.status(500).send(error.message);
+        }
+    }
 
 }
 module.exports = Controller
